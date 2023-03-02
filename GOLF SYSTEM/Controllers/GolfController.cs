@@ -26,17 +26,33 @@ namespace GOLF_SYSTEM.Controllers
             }
         }
 
-        /*
+        
         public void UpdateGolf(int id, GOLFOVE golf)
         {
             using (GolfDBEntities db = new GolfDBEntities())
             {
                 var userToUpdate = db.GOLFOVEs.Where(u => u.Id == id).FirstOrDefault();
-                userToUpdate = golf;
-                db.GOLFOVEs.AddOrUpdate(golf);
-                db.SaveChanges();
+                if (userToUpdate != null)
+                {
+                    userToUpdate.Id = id;
+                    userToUpdate.Model = golf.Model;
+                    userToUpdate.Year = golf.Year;
+                    db.SaveChanges();
+                }
             }
         }
-        */
+
+        public void DeleteGolf(int id)
+        {
+            using (GolfDBEntities db = new GolfDBEntities())
+            {
+                var userToDelete = db.GOLFOVEs.Where(u => u.Id == id).FirstOrDefault();
+                if (userToDelete != null)
+                {
+                    db.GOLFOVEs.Remove(userToDelete);
+                    db.SaveChanges();
+                }
+            }
+        }
     }
 }
